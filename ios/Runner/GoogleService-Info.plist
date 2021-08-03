@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>282645230132-snhctrheg88fv5j1fa7kep62oqjq30f7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.282645230132-snhctrheg88fv5j1fa7kep62oqjq30f7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD-RyWflkoWW2x_FgwFQ5dXp7QeaOqDDtU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>282645230132</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>co.inguz.flutterFirebaseAuth</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-firebase-auth-8f4b4</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-firebase-auth-8f4b4.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:282645230132:ios:42ee3f78f17bc332f9d061</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
+</dict>
+</plist>
