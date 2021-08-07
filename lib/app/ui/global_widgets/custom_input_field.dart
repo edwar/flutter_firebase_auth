@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth/app/ui/utils/colors.dart';
+import 'package:flutter_meedu/screen_utils.dart';
 
 class CustomInputField extends StatefulWidget {
   final void Function(String)? onChanged;
@@ -31,6 +33,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
     return FormField<String>(
         validator: widget.validator,
         initialValue: '',
@@ -55,31 +58,29 @@ class _CustomInputFieldState extends State<CustomInputField> {
                   }
                 },
                 decoration: InputDecoration(
-                    labelStyle: const TextStyle(color: Color(0xFF80929f)),
-                    labelText: widget.label,
-                    suffixIcon: widget.isPassword
-                        ? CupertinoButton(
-                            child: Icon(
-                              _obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: const Color(0xFF80929f),
-                            ),
-                            onPressed: () {
-                              _obscureText = !_obscureText;
-                              setState(() {});
-                            })
-                        : Container(
-                            width: 0,
+                  labelText: widget.label,
+                  suffixIcon: widget.isPassword
+                      ? CupertinoButton(
+                          child: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: isDark
+                                ? _obscureText
+                                    ? primaryDarkColor
+                                    : const Color(0xFF80929f)
+                                : _obscureText
+                                    ? primaryLightColor
+                                    : const Color(0xFF80929f),
                           ),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF80929f)),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF80929f)),
-                    ),
-                    border: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF80929f)))),
+                          onPressed: () {
+                            _obscureText = !_obscureText;
+                            setState(() {});
+                          })
+                      : Container(
+                          width: 0,
+                        ),
+                ),
               ),
               if (state.hasError)
                 Text(

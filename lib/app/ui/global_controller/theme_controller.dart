@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth/app/domain/repositories/preferences_repository.dart';
+import 'package:flutter_firebase_auth/app/ui/utils/colors.dart';
 import 'package:flutter_meedu/flutter_meedu.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ThemeController extends SimpleNotifier {
   late ThemeMode _mode;
@@ -15,18 +18,69 @@ class ThemeController extends SimpleNotifier {
   ThemeMode get mode => _mode;
   bool get isDark => _mode == ThemeMode.dark;
 
+  TextTheme get _textTheme {
+    return GoogleFonts.nunitoTextTheme();
+  }
+
+  ThemeData get lightTheme {
+    return ThemeData.light().copyWith(
+      brightness: Brightness.light,
+      appBarTheme: const AppBarTheme(
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+      ),
+      textTheme: _textTheme,
+      primaryColorLight: primaryLightColor,
+      colorScheme: ColorScheme.fromSwatch(
+        brightness: Brightness.light,
+        primarySwatch: MaterialColor(primaryLightColor.value, swatch),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: primaryLightColor.withOpacity(0.7),
+          ),
+        ),
+        enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.black12,
+        )),
+      ),
+    );
+  }
+
   ThemeData get darkTheme {
     return ThemeData.dark().copyWith(
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
-        backgroundColor: Color(0xff1c313a),
-        elevation: 0,
+        backgroundColor: primaryDarkColor,
       ),
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal),
+      textTheme: _textTheme
+          .merge(
+            ThemeData.dark().textTheme,
+          )
+          .apply(
+            fontFamily: _textTheme.bodyText1!.fontFamily,
+          ),
       scaffoldBackgroundColor: const Color(0xff1c313a),
-      primaryColorDark: const Color(0xff718792),
+      primaryColorDark: primaryDarkColor,
       textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: Color(0xff718792),
+        cursorColor: primaryDarkColor,
+      ),
+      colorScheme: ColorScheme.fromSwatch(
+        brightness: Brightness.dark,
+        primarySwatch: MaterialColor(primaryDarkColor.value, swatch),
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: primaryDarkColor,
+          ),
+        ),
+        enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.white54,
+        )),
       ),
     );
   }
@@ -35,8 +89,14 @@ class ThemeController extends SimpleNotifier {
     if (_mode == ThemeMode.light) {
       _mode = ThemeMode.dark;
       _preferences.darkMode(true);
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle.light,
+      );
     } else {
       _mode = ThemeMode.light;
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle.dark,
+      );
       _preferences.darkMode(false);
     }
     notify();

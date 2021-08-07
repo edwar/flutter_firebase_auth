@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: Routes.SPLASH,
           darkTheme: theme.darkTheme,
-          theme: ThemeData.light(),
+          theme: theme.lightTheme,
           themeMode: theme.mode,
           navigatorObservers: [
             router.observer,

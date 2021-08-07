@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/app/ui/global_controller/session_controller.dart';
 import 'package:flutter_firebase_auth/app/ui/global_widgets/custom_input_field.dart';
+import 'package:flutter_firebase_auth/app/ui/global_widgets/rounded_button.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/login/controller/login_controller.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/login/utils/send_login_form.dart';
 import 'package:flutter_firebase_auth/app/ui/routes/routes.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_firebase_auth/app/utils/email_validator.dart';
 import 'package:flutter_meedu/flutter_meedu.dart';
 import 'package:flutter_meedu/router.dart' as router;
 import 'package:flutter_meedu/meedu.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_meedu/screen_utils.dart';
 
 final loginProvider = SimpleProvider(
   (_) => LoginController(sessionProvider.read),
@@ -18,6 +21,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
     return ProviderListener<LoginController>(
       provider: loginProvider,
       builder: (_, controller) {
@@ -34,6 +38,10 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      SvgPicture.asset(
+                        'assets/images/${isDark ? "dark" : "light"}/login.svg',
+                        width: 300,
+                      ),
                       CustomInputField(
                         label: 'Email',
                         onChanged: controller.onEmailChange,
@@ -71,18 +79,31 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          ElevatedButton(
+                          RoundedButton(
+                            text: 'Sign In',
                             onPressed: () => sendLoginForm(context),
-                            child: const Text('Sign Up'),
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          router.pushNamed(Routes.REGISTER);
-                        },
-                        child: const Text('Sign Up'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Don't have an account?",
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              router.pushNamed(Routes.REGISTER);
+                            },
+                            child: const Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 30),
                     ],

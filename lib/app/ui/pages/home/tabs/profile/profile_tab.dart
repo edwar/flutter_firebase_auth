@@ -7,8 +7,10 @@ import 'package:flutter_firebase_auth/app/ui/global_widgets/dialogs/prograss_dia
 import 'package:flutter_firebase_auth/app/ui/global_widgets/dialogs/show_input_dialog.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/home/tabs/profile/widgets/label_button.dart';
 import 'package:flutter_firebase_auth/app/ui/routes/routes.dart';
+import 'package:flutter_firebase_auth/app/ui/utils/colors.dart';
 import 'package:flutter_meedu/state.dart';
 import 'package:flutter_meedu/router.dart' as router;
+import 'package:flutter_meedu/screen_utils.dart';
 
 class ProfileTab extends ConsumerWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -35,8 +37,8 @@ class ProfileTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, watch) {
+    final isDark = context.isDarkMode;
     final sessionControler = watch(sessionProvider);
-    final isDark = watch(themeProvider).isDark;
     final user = sessionControler.user!;
     final displayName = user.displayName ?? '';
     final letter = displayName.isNotEmpty ? displayName[0] : '';
@@ -130,7 +132,7 @@ class ProfileTab extends ConsumerWidget {
                   const Text('Dark mode'),
                   CupertinoSwitch(
                     value: isDark,
-                    activeColor: isDark ? const Color(0xff718792) : Colors.blue,
+                    activeColor: isDark ? primaryDarkColor : Colors.blue,
                     onChanged: (_) {
                       themeProvider.read.toggle();
                     },

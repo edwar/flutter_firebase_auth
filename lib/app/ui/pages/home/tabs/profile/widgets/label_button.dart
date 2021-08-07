@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth/app/ui/global_controller/theme_controller.dart';
-import 'package:flutter_meedu/state.dart';
+import 'package:flutter_meedu/screen_utils.dart';
 
-class LabelButton extends ConsumerWidget {
+class LabelButton extends StatelessWidget {
   final String label, value;
   final VoidCallback? onPressed;
   const LabelButton({
@@ -13,8 +12,8 @@ class LabelButton extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, watch) {
-    final isDark = watch(themeProvider).isDark;
+  Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
     final iconColor = isDark ? Colors.white70 : Colors.black45;
     return MaterialButton(
       onPressed: () {

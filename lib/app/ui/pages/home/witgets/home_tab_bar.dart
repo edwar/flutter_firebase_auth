@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth/app/ui/global_controller/theme_controller.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/home/home_page.dart';
-import 'package:flutter_meedu/state.dart';
+import 'package:flutter_firebase_auth/app/ui/utils/colors.dart';
+import 'package:flutter_meedu/screen_utils.dart';
 
-class HomeTabBar extends ConsumerWidget {
+class HomeTabBar extends StatelessWidget {
   HomeTabBar({Key? key}) : super(key: key);
   final _homeController = homeProvicer.read;
 
   @override
-  Widget build(BuildContext context, watch) {
-    final isDark = watch(themeProvider).isDark;
-    final color = isDark ? Colors.white : Colors.blue;
+  Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
+    final color = isDark ? primaryDarkColor : primaryLightColor;
     return SafeArea(
       top: false,
       child: TabBar(
