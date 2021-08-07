@@ -36,76 +36,80 @@ class LoginPage extends StatelessWidget {
                 child: Form(
                   key: controller.formKey,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SvgPicture.asset(
                         'assets/images/${isDark ? "dark" : "light"}/login.svg',
                         width: 300,
                       ),
-                      CustomInputField(
-                        label: 'Email',
-                        onChanged: controller.onEmailChange,
-                        inputType: TextInputType.emailAddress,
-                        validator: (text) {
-                          if (isValidEmail(text!)) {
-                            return null;
-                          }
-                          return 'Invalid email';
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomInputField(
-                        label: 'Password',
-                        onChanged: controller.onPasswordChange,
-                        isPassword: true,
-                        validator: (text) {
-                          if (text!.trim().length >= 6) {
-                            return null;
-                          }
-                          return 'Password invalid';
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      Column(
                         children: [
-                          TextButton(
-                            onPressed: () =>
-                                router.pushNamed(Routes.RESET_PASSWORD),
-                            child: const Text('Forgot password?'),
+                          CustomInputField(
+                            label: 'Email',
+                            onChanged: controller.onEmailChange,
+                            inputType: TextInputType.emailAddress,
+                            validator: (text) {
+                              if (isValidEmail(text!)) {
+                                return null;
+                              }
+                              return 'Invalid email';
+                            },
                           ),
                           const SizedBox(
-                            width: 10,
+                            height: 20,
                           ),
-                          RoundedButton(
-                            text: 'Sign In',
-                            onPressed: () => sendLoginForm(context),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Don't have an account?",
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              router.pushNamed(Routes.REGISTER);
+                          CustomInputField(
+                            label: 'Password',
+                            onChanged: controller.onPasswordChange,
+                            isPassword: true,
+                            validator: (text) {
+                              if (text!.trim().length >= 6) {
+                                return null;
+                              }
+                              return 'Password invalid';
                             },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
                           ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () =>
+                                    router.pushNamed(Routes.RESET_PASSWORD),
+                                child: const Text('Forgot password?'),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              RoundedButton(
+                                text: 'Sign In',
+                                onPressed: () => sendLoginForm(context),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Don't have an account?",
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  router.pushNamed(Routes.REGISTER);
+                                },
+                                child: const Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 30),
                         ],
                       ),
-                      const SizedBox(height: 30),
                     ],
                   ),
                 ),

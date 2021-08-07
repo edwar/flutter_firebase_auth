@@ -28,8 +28,13 @@ class ThemeController extends SimpleNotifier {
       appBarTheme: const AppBarTheme(
         brightness: Brightness.light,
         backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: primaryLightColor,
+        ),
       ),
       textTheme: _textTheme,
+      scaffoldBackgroundColor: Colors.white,
       primaryColorLight: primaryLightColor,
       colorScheme: ColorScheme.fromSwatch(
         brightness: Brightness.light,
@@ -53,7 +58,11 @@ class ThemeController extends SimpleNotifier {
     return ThemeData.dark().copyWith(
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
-        backgroundColor: primaryDarkColor,
+        elevation: 0,
+        backgroundColor: Color(0xff1c313a),
+        iconTheme: IconThemeData(
+          color: primaryDarkColor,
+        ),
       ),
       textTheme: _textTheme
           .merge(

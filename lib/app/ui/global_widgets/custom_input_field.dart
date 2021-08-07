@@ -44,7 +44,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
             children: [
               TextField(
                 style: const TextStyle(
-                    color: Color(0xFF80929F), fontSize: 17, letterSpacing: 0.2),
+                  fontSize: 18,
+                  letterSpacing: 0.2,
+                ),
                 obscureText: _obscureText,
                 keyboardType: widget.inputType,
                 onChanged: (text) {

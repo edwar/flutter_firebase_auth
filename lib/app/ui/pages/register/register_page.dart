@@ -7,9 +7,11 @@ import 'package:flutter_firebase_auth/app/utils/email_validator.dart';
 import 'package:flutter_firebase_auth/app/utils/name_validator.dart';
 import 'package:flutter_meedu/flutter_meedu.dart';
 import 'package:flutter_meedu/meedu.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'controller/register_controller.dart';
 import 'controller/register_state.dart';
+import 'package:flutter_meedu/screen_utils.dart';
 
 final registerProvider = StateProvider<RegisterController, RegisterState>(
   (_) => RegisterController(sessionProvider.read),
@@ -20,6 +22,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
     return ProviderListener<RegisterController>(
       provider: registerProvider,
       builder: (_, controller) {
@@ -31,73 +34,82 @@ class RegisterPage extends StatelessWidget {
               color: Colors.transparent,
               width: double.infinity,
               height: double.infinity,
+              padding: const EdgeInsets.all(15),
               child: Form(
                 key: controller.formKey,
-                child: ListView(
-                  padding: const EdgeInsets.all(15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CustomInputField(
-                      label: 'Name',
-                      onChanged: controller.onNameChanged,
-                      validator: (text) {
-                        return isValidName(text!) ? null : 'Invalid name';
-                      },
+                    SvgPicture.asset(
+                      'assets/images/${isDark ? "dark" : "light"}/register.svg',
+                      width: 300,
                     ),
-                    const SizedBox(height: 15),
-                    CustomInputField(
-                      label: 'Last Name',
-                      onChanged: controller.onLastnameChanged,
-                      validator: (text) {
-                        return isValidName(text!) ? null : 'Invalid name';
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    CustomInputField(
-                      label: 'Email',
-                      inputType: TextInputType.emailAddress,
-                      onChanged: controller.onEmailChanged,
-                      validator: (text) {
-                        return isValidEmail(text!) ? null : 'Invalid email';
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    CustomInputField(
-                      label: 'Password',
-                      onChanged: controller.onPasswordChanged,
-                      isPassword: true,
-                      validator: (text) {
-                        if (text!.trim().length >= 6) return null;
-                        return 'Invalid password';
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    Consumer(
-                      builder: (_, watch, __) {
-                        watch(
-                          registerProvider.select(
-                            (_) => _.password,
-                          ),
-                        );
-                        return CustomInputField(
-                          label: 'Verification password',
-                          onChanged: controller.onVPasswordChanged,
+                    Column(
+                      children: [
+                        CustomInputField(
+                          label: 'Name',
+                          onChanged: controller.onNameChanged,
+                          validator: (text) {
+                            return isValidName(text!) ? null : 'Invalid name';
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        CustomInputField(
+                          label: 'Last Name',
+                          onChanged: controller.onLastnameChanged,
+                          validator: (text) {
+                            return isValidName(text!) ? null : 'Invalid name';
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        CustomInputField(
+                          label: 'Email',
+                          inputType: TextInputType.emailAddress,
+                          onChanged: controller.onEmailChanged,
+                          validator: (text) {
+                            return isValidEmail(text!) ? null : 'Invalid email';
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        CustomInputField(
+                          label: 'Password',
+                          onChanged: controller.onPasswordChanged,
                           isPassword: true,
                           validator: (text) {
-                            if (controller.state.password != text) {
-                              return "Password don't match";
-                            }
                             if (text!.trim().length >= 6) return null;
                             return 'Invalid password';
                           },
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ElevatedButton(
-                      child: const Text('REGISTER'),
-                      onPressed: () => sendRegisterForm(context),
+                        ),
+                        const SizedBox(height: 15),
+                        Consumer(
+                          builder: (_, watch, __) {
+                            watch(
+                              registerProvider.select(
+                                (_) => _.password,
+                              ),
+                            );
+                            return CustomInputField(
+                              label: 'Verification password',
+                              onChanged: controller.onVPasswordChanged,
+                              isPassword: true,
+                              validator: (text) {
+                                if (controller.state.password != text) {
+                                  return "Password don't match";
+                                }
+                                if (text!.trim().length >= 6) return null;
+                                return 'Invalid password';
+                              },
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton(
+                          child: const Text('REGISTER'),
+                          onPressed: () => sendRegisterForm(context),
+                        ),
+                      ],
                     ),
                   ],
                 ),
