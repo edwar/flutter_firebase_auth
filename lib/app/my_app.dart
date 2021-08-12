@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       builder: (_, watch, __) {
         final theme = watch(themeProvider);
         return MaterialApp(
+          key: router.appKey,
           title: 'Flutter FA',
           navigatorKey: router.navigatorKey,
           debugShowCheckedModeBanner: false,

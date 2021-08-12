@@ -30,7 +30,7 @@ class ThemeController extends SimpleNotifier {
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: primaryLightColor,
+          color: Colors.white,
         ),
       ),
       textTheme: _textTheme,
@@ -61,7 +61,7 @@ class ThemeController extends SimpleNotifier {
         elevation: 0,
         backgroundColor: Color(0xff1c313a),
         iconTheme: IconThemeData(
-          color: primaryDarkColor,
+          color: Colors.white,
         ),
       ),
       textTheme: _textTheme
