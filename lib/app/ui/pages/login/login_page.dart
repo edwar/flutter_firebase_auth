@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/app/ui/global_controller/session_controller.dart';
-import 'package:flutter_firebase_auth/app/ui/global_widgets/custom_input_field.dart';
-import 'package:flutter_firebase_auth/app/ui/global_widgets/rounded_button.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/login/controller/login_controller.dart';
-import 'package:flutter_firebase_auth/app/ui/pages/login/utils/send_login_form.dart';
-import 'package:flutter_firebase_auth/app/ui/routes/routes.dart';
-import 'package:flutter_firebase_auth/app/utils/email_validator.dart';
+import 'package:flutter_firebase_auth/app/ui/utils/colors.dart';
 import 'package:flutter_meedu/flutter_meedu.dart';
-import 'package:flutter_meedu/router.dart' as router;
 import 'package:flutter_meedu/meedu.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_meedu/screen_utils.dart';
+
+import 'widgets/login_form.dart';
 
 final loginProvider = SimpleProvider(
   (_) => LoginController(sessionProvider.read),
@@ -21,100 +16,32 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.isDarkMode;
     return ProviderListener<LoginController>(
       provider: loginProvider,
       builder: (_, controller) {
         return Scaffold(
-          body: SafeArea(
-            child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
-              child: Container(
-                color: Colors.transparent,
-                width: double.infinity,
-                padding: const EdgeInsets.all(15),
-                child: Form(
-                  key: controller.formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/${isDark ? "dark" : "light"}/login.svg',
-                        width: 300,
-                      ),
-                      Column(
-                        children: [
-                          CustomInputField(
-                            label: 'Email',
-                            onChanged: controller.onEmailChange,
-                            inputType: TextInputType.emailAddress,
-                            validator: (text) {
-                              if (isValidEmail(text!)) {
-                                return null;
-                              }
-                              return 'Invalid email';
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          CustomInputField(
-                            label: 'Password',
-                            onChanged: controller.onPasswordChange,
-                            isPassword: true,
-                            validator: (text) {
-                              if (text!.trim().length >= 6) {
-                                return null;
-                              }
-                              return 'Password invalid';
-                            },
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () =>
-                                    router.pushNamed(Routes.RESET_PASSWORD),
-                                child: const Text('Forgot password?'),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              RoundedButton(
-                                text: 'Sign In',
-                                onPressed: () => sendLoginForm(context),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Don't have an account?",
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  router.pushNamed(Routes.REGISTER);
-                                },
-                                child: const Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 30),
-                        ],
-                      ),
-                    ],
+          body: OrientationBuilder(
+            builder: (_, Orientation orientation) {
+              if (orientation == Orientation.portrait) {
+                return LoginForm();
+              }
+              return Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      color: context.isDarkMode
+                          ? primaryDarkColor
+                          : primaryLightColor,
+                    ),
                   ),
-                ),
-              ),
-            ),
+                  Expanded(
+                    flex: 2,
+                    child: LoginForm(),
+                  ),
+                ],
+              );
+            },
           ),
         );
       },
