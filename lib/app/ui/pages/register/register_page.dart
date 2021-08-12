@@ -25,9 +25,7 @@ class RegisterPage extends StatelessWidget {
       provider: registerProvider,
       builder: (_, controller) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: isDark ? primaryDarkColor : primaryLightColor,
-          ),
+          appBar: AppBar(),
           body: OrientationBuilder(
             builder: (_, Orientation orientation) {
               if (orientation == Orientation.portrait) {

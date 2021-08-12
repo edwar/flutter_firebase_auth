@@ -27,7 +27,7 @@ class ThemeController extends SimpleNotifier {
       brightness: Brightness.light,
       appBarTheme: const AppBarTheme(
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
+        backgroundColor: primaryLightColor,
         elevation: 0,
         iconTheme: IconThemeData(
           color: Colors.white,
@@ -59,7 +59,7 @@ class ThemeController extends SimpleNotifier {
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
         elevation: 0,
-        backgroundColor: Color(0xff1c313a),
+        backgroundColor: primaryDarkColor,
         iconTheme: IconThemeData(
           color: Colors.white,
         ),

@@ -49,13 +49,29 @@ class RegisterForm extends StatelessWidget {
                           ? MainAxisAlignment.center
                           : MainAxisAlignment.spaceAround,
                       children: [
-                        if (!context.isTablet || context.isPortrait)
-                          AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: SvgPicture.asset(
-                              'assets/images/${isDark ? "dark" : "light"}/register.svg',
+                        Column(
+                          children: [
+                            if (!context.isTablet || context.isPortrait)
+                              AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: SvgPicture.asset(
+                                  'assets/images/${isDark ? "dark" : "light"}/register.svg',
+                                ),
+                              ),
+                            const SizedBox(
+                              height: 10,
                             ),
-                          ),
+                            const Center(
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Column(
                           children: [
                             CustomInputField(
