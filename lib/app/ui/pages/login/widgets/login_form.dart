@@ -3,6 +3,7 @@ import 'package:flutter_firebase_auth/app/ui/global_widgets/custom_input_field.d
 import 'package:flutter_firebase_auth/app/ui/global_widgets/rounded_button.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/login/login_page.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/login/utils/send_login_form.dart';
+import 'package:flutter_firebase_auth/app/ui/pages/login/widgets/social_buttons.dart';
 import 'package:flutter_firebase_auth/app/ui/routes/routes.dart';
 import 'package:flutter_firebase_auth/app/utils/email_validator.dart';
 import 'package:flutter_meedu/screen_utils.dart';
@@ -115,6 +116,10 @@ class LoginForm extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 30),
+                            const Text('Or sign in with'),
+                            const SizedBox(height: 10),
+                            const SocialButtons(),
                             if (!context.isTablet) const SizedBox(height: 30),
                           ],
                         ),
