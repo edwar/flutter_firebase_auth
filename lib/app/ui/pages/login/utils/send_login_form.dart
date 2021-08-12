@@ -28,6 +28,9 @@ Future<void> sendLoginForm(BuildContext context) async {
         case SignInError.wrongPassword:
           errorMessage = 'wrong password';
           break;
+        case SignInError.accountExistsWithDifferentCredential:
+          errorMessage = response.providerId ?? 'Invalid auth method';
+          break;
         case SignInError.unknown:
         default:
           errorMessage = 'unknown error';

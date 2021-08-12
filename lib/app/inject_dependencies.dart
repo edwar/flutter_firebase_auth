@@ -8,12 +8,16 @@ import 'package:flutter_firebase_auth/app/domain/repositories/authentication_rep
 import 'package:flutter_firebase_auth/app/domain/repositories/preferences_repository.dart';
 import 'package:flutter_firebase_auth/app/domain/repositories/sign_up_repository.dart';
 import 'package:flutter_meedu/meedu.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> injectDependencies() async {
   final preference = await SharedPreferences.getInstance();
   Get.i.lazyPut<AuthenticationRepository>(
-    () => AuthenticationRepositoryImpl(FirebaseAuth.instance),
+    () => AuthenticationRepositoryImpl(
+      firebaseAuth: FirebaseAuth.instance,
+      googleSignIn: GoogleSignIn(),
+    ),
   );
   Get.i.lazyPut<SignUpRepository>(
     () => SignUpRepositoryImpl(FirebaseAuth.instance),
