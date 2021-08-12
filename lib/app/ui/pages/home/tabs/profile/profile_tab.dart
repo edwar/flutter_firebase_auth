@@ -146,6 +146,7 @@ class ProfileTab extends ConsumerWidget {
           label: 'Sing Out',
           value: '',
           onPressed: () async {
+            ProgreassDialogs.show(context);
             await sessionProvider.read.signOut();
             router.pushNamedAndRemoveUntil(Routes.LOGIN);
           },

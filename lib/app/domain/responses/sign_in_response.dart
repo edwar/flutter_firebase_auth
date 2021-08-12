@@ -13,12 +13,14 @@ class SignInResponse {
 }
 
 enum SignInError {
+  cancelled,
   networkRequestFailed,
   userDisabled,
   userNotFound,
   wrongPassword,
   unknown,
-  accountExistsWithDifferentCredential
+  accountExistsWithDifferentCredential,
+  invalidCredential,
 }
 
 SignInResponse getSingError(FirebaseAuthException e) {
@@ -38,6 +40,9 @@ SignInResponse getSingError(FirebaseAuthException e) {
       break;
     case 'account-exists-with-different-credential':
       error = SignInError.accountExistsWithDifferentCredential;
+      break;
+    case 'invalid-credential':
+      error = SignInError.invalidCredential;
       break;
     default:
       error = SignInError.unknown;

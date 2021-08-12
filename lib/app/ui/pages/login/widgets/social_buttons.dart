@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/app/ui/icons/social_icons.dart';
+import 'package:flutter_firebase_auth/app/ui/pages/login/utils/sign_in_with_google.dart';
 
 import 'social_button.dart';
 
@@ -20,7 +21,7 @@ class SocialButtons extends StatelessWidget {
           width: 15,
         ),
         SocialButton(
-          onPressed: () {},
+          onPressed: () => signInWithGoogle(context),
           iconData: SocialIcons.google,
           color: Colors.redAccent,
         ),

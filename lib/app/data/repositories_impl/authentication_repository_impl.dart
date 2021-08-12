@@ -37,7 +37,25 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<void> signOut() {
+  Future<void> signOut() async {
+    final data = _user?.providerData ?? [];
+    String providerId = 'firebase';
+    for (final provider in data) {
+      // password
+      // phone
+      // google.com
+      // facebook.com
+      // twitter.com
+      // github.com
+      // apple.com
+      if (provider.providerId != providerId) {
+        providerId = provider.providerId;
+        break;
+      }
+    }
+    if (providerId == 'google.com') {
+      await _googleSignIn.signOut();
+    } else if (providerId == 'facebook.com') {}
     return _auth.signOut();
   }
 
@@ -66,7 +84,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       final account = await _googleSignIn.signIn();
       if (account == null) {
         return SignInResponse(
-          error: SignInError.unknown,
+          error: SignInError.cancelled,
           user: null,
           providerId: null,
         );

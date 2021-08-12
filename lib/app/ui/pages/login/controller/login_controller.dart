@@ -7,7 +7,7 @@ import 'package:flutter_meedu/flutter_meedu.dart';
 class LoginController extends SimpleNotifier {
   final SessionControler _sessionControler;
   String _email = '', _password = '';
-  final AuthenticationRepository _authRepository = Get.i.find();
+  final AuthenticationRepository _authenticationRepository = Get.i.find();
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -21,11 +21,19 @@ class LoginController extends SimpleNotifier {
     _password = text;
   }
 
-  Future<SignInResponse> submit() async {
-    final response = await _authRepository.signInWithEmailAndPassword(
+  Future<SignInResponse> signInWithEmailAndPassword() async {
+    final response = await _authenticationRepository.signInWithEmailAndPassword(
       _email,
       _password,
     );
+    if (response.error == null) {
+      _sessionControler.setUser(response.user!);
+    }
+    return response;
+  }
+
+  Future<SignInResponse> signInWithGoogle() async {
+    final response = await _authenticationRepository.signInWithGoogle();
     if (response.error == null) {
       _sessionControler.setUser(response.user!);
     }
