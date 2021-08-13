@@ -54,8 +54,22 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.282645230132-snhctrheg88fv5j1fa7kep62oqjq30f7</string>
+                <string>fb356748326101018</string>
 			</array>
 		</dict>
 	</array>
+    <key>FacebookAppID</key>
+    <string>356748326101018</string>
+    <key>FacebookDisplayName</key>
+    <string>Curso flutter firebase auth</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+    <key>FacebookClientToken</key>
+    <string>47a2fa810ac7287c8045447882e94c04</string>
 </dict>
 </plist>
