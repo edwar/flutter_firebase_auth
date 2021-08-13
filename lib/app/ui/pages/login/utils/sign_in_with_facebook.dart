@@ -4,10 +4,10 @@ import 'package:flutter_firebase_auth/app/ui/pages/login/login_page.dart';
 
 import 'handle_login_form.dart';
 
-void signInWithGoogle(BuildContext context) async {
+void signInWithFacebook(BuildContext context) async {
   ProgreassDialogs.show(context);
   final controller = loginProvider.read;
-  final response = await controller.signInWithGoogle();
+  final response = await controller.signInWithFacebook();
   Navigator.pop(context);
   handleLoginResponse(context, response);
 }

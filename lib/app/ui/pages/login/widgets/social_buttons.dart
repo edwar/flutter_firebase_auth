@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/app/ui/icons/social_icons.dart';
+import 'package:flutter_firebase_auth/app/ui/pages/login/utils/sign_in_with_facebook.dart';
 import 'package:flutter_firebase_auth/app/ui/pages/login/utils/sign_in_with_google.dart';
 
 import 'social_button.dart';
@@ -13,7 +14,7 @@ class SocialButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SocialButton(
-          onPressed: () {},
+          onPressed: () => signInWithFacebook(context),
           iconData: SocialIcons.facebook,
           color: Colors.blueAccent,
         ),

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_firebase_auth/app/data/repositories_impl/account_repository_impl.dart';
 import 'package:flutter_firebase_auth/app/data/repositories_impl/authentication_repository_impl.dart';
 import 'package:flutter_firebase_auth/app/data/repositories_impl/preferences_repository_impl.dart';
@@ -17,6 +18,7 @@ Future<void> injectDependencies() async {
     () => AuthenticationRepositoryImpl(
       firebaseAuth: FirebaseAuth.instance,
       googleSignIn: GoogleSignIn(),
+      facebookAuth: FacebookAuth.i,
     ),
   );
   Get.i.lazyPut<SignUpRepository>(

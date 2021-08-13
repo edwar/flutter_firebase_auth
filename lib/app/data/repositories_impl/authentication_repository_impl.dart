@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_firebase_auth/app/domain/repositories/authentication_repository.dart';
 import 'package:flutter_firebase_auth/app/domain/responses/sign_in_response.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,14 +9,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
+  final FacebookAuth _facebookAuth;
   User? _user;
   final Completer<void> _completer = Completer();
 
   AuthenticationRepositoryImpl({
     required FirebaseAuth firebaseAuth,
     required GoogleSignIn googleSignIn,
+    required FacebookAuth facebookAuth,
   })  : _auth = firebaseAuth,
-        _googleSignIn = googleSignIn {
+        _googleSignIn = googleSignIn,
+        _facebookAuth = facebookAuth {
     _init();
   }
 
@@ -55,7 +59,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     }
     if (providerId == 'google.com') {
       await _googleSignIn.signOut();
-    } else if (providerId == 'facebook.com') {}
+    } else if (providerId == 'facebook.com') {
+      await _facebookAuth.logOut();
+    }
     return _auth.signOut();
   }
 
@@ -100,6 +106,42 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         user: userCredential.user,
         providerId: userCredential.credential?.providerId,
         error: null,
+      );
+    } on FirebaseAuthException catch (e) {
+      return getSingError(e);
+    }
+  }
+
+  @override
+  Future<SignInResponse> signInWithFacebook() async {
+    try {
+      final result = await _facebookAuth.login();
+
+      if (result.status == LoginStatus.success) {
+        final oAuthCredential =
+            FacebookAuthProvider.credential(result.accessToken!.token);
+        final userCredential =
+            await _auth.signInWithCredential(oAuthCredential);
+        final user = userCredential.user!;
+        if (!user.emailVerified && user.email != null) {
+          await user.sendEmailVerification();
+        }
+        return SignInResponse(
+          user: user,
+          providerId: userCredential.credential?.providerId,
+          error: null,
+        );
+      } else if (result.status == LoginStatus.cancelled) {
+        return SignInResponse(
+          error: SignInError.cancelled,
+          user: null,
+          providerId: null,
+        );
+      }
+      return SignInResponse(
+        error: SignInError.unknown,
+        user: null,
+        providerId: null,
       );
     } on FirebaseAuthException catch (e) {
       return getSingError(e);

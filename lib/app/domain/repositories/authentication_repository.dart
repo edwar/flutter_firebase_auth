@@ -9,4 +9,5 @@ abstract class AuthenticationRepository {
     String password,
   );
   Future<SignInResponse> signInWithGoogle();
+  Future<SignInResponse> signInWithFacebook();
 }
